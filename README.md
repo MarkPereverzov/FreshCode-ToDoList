@@ -1,7 +1,25 @@
 # FreshCode-ToDoList
 
-First step of starting
-in "D:\Projects\FreshCode-ToDoList\backend" use command "node server.js"
+### Це простий повнофункціональний ToDo-додаток із frontend на React і backend на Node.js + Express, який зберігає завдання у базі даних SQLite.
 
-second step
-in "D:\Projects\FreshCode-ToDoList\frontend" use command "npm run start"
+
+**Основні можливості:**
+
+• Додавання нових завдань
+
+• Відмічання завдань як виконаних
+
+• Видалення завдань
+
+• Збереження даних у локальній базі (SQLite)
+
+
+**Інструкція запуску:**
+
+Перейди в папку backend (```cd D:\Projects\FreshCode-ToDoList\backend```):
+
+```node server.js```
+
+В іншому терміналі перейди до frontend (```cd D:\Projects\FreshCode-ToDoList\frontend```):
+
+```npm run start```
