@@ -8,10 +8,14 @@ export default function App() {
   const [title, setTitle] = useState('');
 
   useEffect(() => {
-    fetch(`${API_URL}/tasks`)
-      .then(res => res.json())
-      .then(setTasks);
+    fetchTasks();
   }, []);
+
+  const fetchTasks = async () => {
+    const res = await fetch(`${API_URL}/tasks`);
+    const data = await res.json();
+    setTasks(data);
+  };
 
   const addTask = async () => {
     if (!title.trim()) return;
@@ -25,9 +29,24 @@ export default function App() {
     setTitle('');
   };
 
-  const toggleTask = async (id) => {
-    await fetch(`${API_URL}/tasks/${id}`, { method: 'PUT' });
-    setTasks(tasks.map(task => task.id === id ? { ...task, completed: task.completed ? 0 : 1 } : task));
+  const toggleTask = async (id, currentStatus) => {
+    try {
+      const response = await fetch(`${API_URL}/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ completed: !currentStatus }),
+      });
+
+      if (response.ok) {
+        setTasks(tasks.map(task =>
+          task.id === id ? { ...task, completed: !currentStatus } : task
+        ));
+      }
+    } catch (err) {
+      console.error('Error updating task:', err);
+    }
   };
 
   const deleteTask = async (id) => {
@@ -48,12 +67,16 @@ export default function App() {
       <ul>
         {tasks.map(task => (
           <li key={task.id}>
-            <span
-              className={task.completed ? 'completed' : ''}
-              onClick={() => toggleTask(task.id)}
-            >
-              {task.title}
-            </span>
+            <label>
+              <input
+                type="checkbox"
+                checked={!!task.completed}
+                onChange={() => toggleTask(task.id, task.completed)}
+              />
+              <span className={task.completed ? 'completed' : ''}>
+                {task.title}
+              </span>
+            </label>
             <button onClick={() => deleteTask(task.id)}>Видалити</button>
           </li>
         ))}
