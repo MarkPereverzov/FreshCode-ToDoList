@@ -23,3 +23,5 @@
 В іншому терміналі перейди до frontend (```cd D:\Projects\FreshCode-ToDoList\frontend```):
 
 ```npm run start```
+
+![Image alt](https://github.com/MarkPereverzov/FreshCode-ToDoList/blob/main/ToDoList-screenshot.png)
